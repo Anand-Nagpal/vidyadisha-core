@@ -1,41 +1,39 @@
-plugins {
-	id 'org.springframework.boot' version '2.4.2'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
-	id 'war'
+jar {
+    baseName = 'vidyadisha'
+    version = '0.1.0'
 }
-
-group = 'com.vidyadisha'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
+
+sourceCompatibility = 1.8
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-jersey'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'junit:junit:4.11'
+
+    // Spring Framework
+    //compile 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-jersey'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-test {
-	useJUnitPlatform()
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.6'
 }
-
-
 
 task stage(type: Copy, dependsOn: [clean, build]) {
-	from jar.archivePath
-	into project.rootDir
-	rename {
-		'app.jar'
-	}
+    from jar.archivePath
+    into project.rootDir
+    rename {
+        'app.jar'
+    }
 }
 stage.mustRunAfter(clean)
 
 clean << {
-	project.file('app.jar').delete()
+    project.file('app.jar').delete()
 }
