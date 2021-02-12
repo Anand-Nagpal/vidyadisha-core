@@ -10,4 +10,11 @@ public class LoginServiceImpl implements LoginService{
         }
         return false;
     }
+
+    public boolean login(String user,String password){
+        if("admin".equals(user) && "password".equals(password)){
+            return true;
+        }
+        return false;
+    }
 }
