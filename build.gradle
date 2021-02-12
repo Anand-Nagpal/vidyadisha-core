@@ -25,9 +25,7 @@ test {
 	useJUnitPlatform()
 }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '2.6'
-}
+
 
 task stage(type: Copy, dependsOn: [clean, build]) {
 	from jar.archivePath
